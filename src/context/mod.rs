@@ -167,7 +167,8 @@ impl Context {
         let gl_state: RefCell<GlState> = RefCell::new(Default::default());
 
         let version = version::get_gl_version(&gl);
-        let extensions = extensions::get_extensions(&gl, &version);
+        let mut extensions = extensions::get_extensions(&gl, &version);
+        extensions.gl_ext_direct_state_access = false;
         try!(check_gl_compatibility(&version, &extensions));
 
         let capabilities = capabilities::get_capabilities(&gl, &version, &extensions);
